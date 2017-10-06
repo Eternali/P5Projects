@@ -1,6 +1,6 @@
 let width, height, fps;
-let vertexRad, vertexMass, lineWidth, connDist, dist;
-let friction;
+let vertexRad, vertexMass, lineWidth, connDist, dist, mouseDist;
+let maxRestSpeed, friction;
 
 let mouseVec = { x: 0, y: 0 };
 let vertices = [];
@@ -11,13 +11,15 @@ function setup () {
     height = window.innerHeight - 16;
     fps = 30;
 
-    friction = 1;
     vertexRad = 2;
     vertexMass = 0.5;
     lineWidth = 3;
     connDist = 150;
+    maxRestSpeed = 2;
+    friction = 0.9;
+    mouseDist = 150;
 
-    for (let i = 0; i < 50; i ++) vertices.push(new Vertex());
+    for (let i = 0; i < 100; i ++) vertices.push(new Vertex());
     for (let v1 = 0; v1 < vertices.length; v1 ++)
         for (let v2 = v1 + 1; v2 < vertices.length; v2 ++)
             connections.push([vertices[v1], vertices[v2]]);
@@ -41,14 +43,14 @@ function draw () {
 
     push();
     for (let conn of connections) {
-        dist = sqrt(pow(conn[0].x-conn[1].x, 2) + pow(conn[0].y-conn[1].y, 2));
+        dist = sqrt(pow(conn[0].pos.x-conn[1].pos.x, 2) + pow(conn[0].pos.y-conn[1].pos.y, 2));
         stroke(
             0,
-            map(conn[0].x, vertexRad, width - vertexRad, 0, 255),
-            map(conn[0].y, vertexRad, height - vertexRad, 0, 255),
+            map(conn[0].pos.x, vertexRad, width - vertexRad, 0, 255),
+            map(conn[0].pos.y, vertexRad, height - vertexRad, 0, 255),
             (dist <= connDist) ? 1 - map(dist, 0, connDist, 0, 1) : 0
         );
-        line(conn[0].x, conn[0].y, conn[1].x, conn[1].y);
+        line(conn[0].pos.x, conn[0].pos.y, conn[1].pos.x, conn[1].pos.y);
     }
     pop();
 
