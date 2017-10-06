@@ -7,11 +7,11 @@ let vertices = [];
 let connections = [];
 
 function setup () {
-    width = window.innerWidth - 16;
-    height = window.innerHeight - 16;
+    width = document.documentElement.clientWidth;
+    height = 500;
     fps = 30;
 
-    vertexRad = 2;
+    vertexRad = 1;
     vertexMass = 0.5;
     lineWidth = 3;
     connDist = 150;
@@ -19,7 +19,7 @@ function setup () {
     friction = 0.9;
     mouseDist = 150;
 
-    for (let i = 0; i < 100; i ++) vertices.push(new Vertex());
+    for (let i = 0; i < 100; i ++) vertices.push(new Vertex(i));
     for (let v1 = 0; v1 < vertices.length; v1 ++)
         for (let v2 = v1 + 1; v2 < vertices.length; v2 ++)
             connections.push([vertices[v1], vertices[v2]]);

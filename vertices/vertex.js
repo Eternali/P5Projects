@@ -1,7 +1,7 @@
 function Vertex () {
 
     this.pos = { x: random(vertexRad, width-vertexRad), y: random(vertexRad, height-vertexRad) };
-    this.vel = { x: random(-1.5, 1.5), y: random(-1.5, 1.5) };
+    this.vel = { x: random(-1, 1), y: random(-1, 1) };
     this.acc = { x: 0, y: 0 };
     this.dmouse = 0;
     this.dmousereg = 0;
@@ -21,8 +21,8 @@ function Vertex () {
             if (abs(this.vel.y) > maxRestSpeed) this.vel.y *= friction;
         }
 
-        this.vel.x += this.acc.x;
-        this.vel.y += this.acc.y;
+        this.vel.x += this.acc.x + random(-0.1, 0.1);;
+        this.vel.y += this.acc.y + random(-0.1, 0.1);
 
         if (this.pos.x < vertexRad) this.vel.x = abs(this.vel.x);
         else if (width - vertexRad < this.pos.x) this.vel.x = -abs(this.vel.x);
