@@ -2,14 +2,14 @@ function Vertex () {
 
     this.x = random(vertexRad, width-vertexRad);
     this.y = random(vertexRad, height-vertexRad);
-    this.vx = random(-1, 1);
-    this.vy = random(-1, 1);
+    this.vx = random(-1.5, 1.5);
+    this.vy = random(-1.5, 1.5);
 
-    this.connections = [];
+    this.force = { x: 0; y: 0 };
 
     this.update = function () {
-        this.vx *= friction;
-        this.vy *= friction;
+        this.vx += this.force.x * vertexMass;
+        this.vy += this.force.y * vertexMass;
 
         if (this.x < vertexRad) this.vx = abs(this.vx);
         else if (width - vertexRad < this.x) this.vx = -abs(this.vx);
